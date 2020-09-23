@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Conceptual Modeling with R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Geret DePiper, Sarah Gaichas, Brandon Muffley   Summer Flounder Conceptual Modeling Team" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/pymjs/pym.v1.js"></script>
+    <script src="libs/widgetframe-binding/widgetframe.js"></script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link rel="stylesheet" href="libs\EDAB_theme3_508_SOE_16by9.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: right, middle, my-title, title-slide
+
+# Conceptual Modeling with R
+## An R Markdown Project Example <br /> September 24, 2020
+### Geret DePiper, Sarah Gaichas, Brandon Muffley <br /> Summer Flounder Conceptual Modeling Team
+
+---
+
+class: top, left
+
+
+
+# Mid-Atlantic Fishery Management Council Request:
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+## [A conceptual model for summer flounder fishery-ecosystem interactions, inventory of data availability and gaps, applicable models, and example management questions which could be addressed with this knowledge base.](https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html)
+
+Transition from risk assessment to Management Strategy Evaluation
+
+Credit where credit is due: Sarah Gaichas at NEFSC developed most of the R Markdown code &amp; made the conceptual model interactive
+???
+---
+# Orientiation
+
+## What this talk will do:
+
+- Walk through decision points which facilitated use of R &amp; R Markdown
+
+## What this talk won't do:
+
+- Review every line of code used to develop the HTML file
+
+  + That code can be found here: &lt;br /&gt;
+    https://github.com/gdepiper/Summer_Flounder_Conceptual_Models.git
+    
+- Serve solely as an introduction to R Markdown
+
+  + Better resources available
+  
+      + e.g. https://rmarkdown.rstudio.com/lesson-1.html
+    
+## The hope is to present the utility of collaborating in R, particularly for projects with ill-defined needs and products, necessitating substantial collaboration, or with recurring production needs.
+???
+---
+# First thing first...what is R Markdown?
+
+.pull-left[R port of Markdown language
+  
+- Plain text HTML editor with added functionality
+  
+  + Extended to generate PDF &amp; Word documents
+  
+    + Some LaTeX, BibTeX, &amp; Beamer functionality
+    
+  + Code can be executed directly in the markdown file]
+  
+  .pull-right[
+
+```r
+  n=1000 
+  y=rnorm(n) #Drawing 1,000 random observations ~ N(0,1)
+  y_density &lt;- density(y)
+  plot(y_density,main="Integrating code is extremely useful!")
+```
+
+&lt;img src="RWorkshopSocialsci_GD_files/figure-html/RMarkdownfig-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+???
+---
+# Our team was asked specifically for a conceptual model
+
+.pull-left[Many software available
+
+- [Used Dia](http://dia-installer.de/)
+  
+  + Free
+    
+  + Fast
+    
+  + Can easily import adjacency matrix into R using the [Qpress Package](https://github.com/SWotherspoon/QPress)
+    
+    + Increases functionality immensely
+    
+    + Need [devtools package](https://cran.r-project.org/web/packages/devtools/index.html)
+]
+      
+.pull-right[
+![Dia software gui interface image.](RWorkshopImages/Dia.png)
+
+.image-cap[Dia software user interface.
+]
+]
+
+???
+---
+# Model linkages quickly became hard to trace
+
+.pull-left[Work Group decided a few steps would facilitate communication
+
+- Fix 1: Sub-models to focus on key relationships
+  
+  + Based on pre-determined focal components
+    
+  + Function pulls relevant linkages only]
+    
+.pull-right[
+![Code chunk that subsets data.](RWorkshopImages/Submodel_code_chunk.png)
+
+.image-cap[Submodel function easily creates subsets of data for submodel rendering.
+]
+]
+
+???
+---
+# Model linkages quickly became hard to trace
+
+.pull-left[Work Group decided a few steps would facilitate communication
+
+- Fix 2: Interactive model
+
+  + [chorddiag package](https://github.com/mattflor/chorddiag)
+  
+    + Need [devtools package](https://cran.r-project.org/web/packages/devtools/index.html) 
+    
+  + More easily trace linkages
+    
+  + Added benefit: reproducible in html slides!
+  
+  ]
+
+.pull-right[
+![Full conceptual model with discards highlighted](RWorkshopImages/discards.png)
+
+.image-cap[Static conceptual model image.
+]
+]
+???
+---
+<div id="htmlwidget-374e928f76545bb7e665" style="width:100%;height:650px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-374e928f76545bb7e665">{"x":{"url":"RWorkshopSocialsci_GD_files/figure-html//widgets/widget_sfconceptmod.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+???
+In this interactive circular graph visualization, model elements identified as important by the Council (through risk assessment) and by the working group (through a range of experience and expertise) are at the perimeter of the circle. Elements are defined in detail in the last section of [this page](https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html). Relationships between elements are represented as links across the center of the circle to other elements on the perimeter. Links from a model element that affect another element start wide at the base and are color coded to match the category of the element they affect.Hover over a perimeter section (an element) to see all relationships for that element, including links from other elements. Hover over a link to see what it connects. Links by default show text for the two elements and the direction of the relationship (1 for relationship, 0 for no relationship--most links are one direction).For example, hovering over the element "Total Landings" in the full model shows that the working group identified the elements affected by landings as Seafood Production, Recreational Value, and Commercial Profits (three links leading out from landings), and the elements affecting landings as Fluke SSB, Fluke Distributional Shift, Risk Buffering, Management Control, Total Discards, and Shoreside Support (6 links leading into Total Landings).
+
+
+???
+---
+## Our team was asked specifically for a gap analysis
+
+## Documentation is also key to scientific method
+
+- Transparency &amp; Reproducibility 
+
+  + Each link documented
+    
+#### Allocation
+&lt;table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Model Element &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Justification for Inclusion &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Data to support (Y/N/M) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Data - if yes, identify and list out all data sources (including temporal resolution and series length), analyses, model, Council project etc. &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Spatial Component (North/South; Inshore/Offshore; Other - specify) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Biomass distributional shifts (North/South)                                       and Fluke SSB &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Many of the current allocation discussions have focused on reallocation scenarios that are being driven, in part, due to distribution shifts or range expansion of biomass. As the summer flounder biomass changes over time due to climate and/or stock rebuilding, consideration of biomass distribution in any allocation scheme will be needed. Current commercial summer flounder amendment considered, although not selected, stock distribution changes for potential reallocation schemes. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NEFSC trawl survey and other state and multistate (i.e., NEAMAP) survey information; commercial ammendment DEIS; 2018 benchmark stock assessment &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; North/South &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Fishery distributional shift (Inshore/offshore and north/south) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Center of commercial fishery effort/landings - coastwide and within many states - has shifted north and east. In 1990's off southern Delmarva and now off northern NJ. Potential changes and shifts between small and large boat operations. Differences in the recreational fishery inshore vs offshore access. Timing of when fish arrive and size differences of fish inshore vs offshore. States establishing shore-based programs with smaller size limits to increase access. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Commercial VTRs (harvest/effort locations; vessel size); Social Sciences Branch Fishing Footprint maps; MRIP information; annual staff recreational memos; publications (e.g. Pinsky et. al. 2017; Dubik et. al. 2018) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; North/South and Inshore/Offshore &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Data quality/availability &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Types of data sources and quality of information available will play a role in determining an allocation and ability to make future changes. Are the data representative of stock availability. Consider data sources outside of com/rec/sector area (e.g., census data, social/economic factors). &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Commercial and recreational landings information with associated uncertainty. Other data sources - census information, boat registration, shoreside support businesses &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Management control &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; The summer flounder FMP specifies the sector specific and the recreational and commercial state-by-state allocations. The Council and Board recently made adjustments to the commercial allocation depending upon the total commercial quota. Future adjustments to any allocation scheme are under the purview of management and, therefore, directly affects allocation outcomes. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Summer flounder FMP; recent EIS on the commercial summer flounder amendment; recently initiated sector allocation amendment; see data sources identified under other allocation elements (below) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Recreational/commercial allocation &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 60% commercial, 40% recreational allocation split part of FMP and based on landings from 1980-1989. Is this split optimal/accurate, especially with new MRIP estimates. Potential sector allocation considerations. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Council funded allocation review project (Hicks &amp;amp; Schnier); MRIP data and commercial landings. 
+
+Historical allocation across sectors/states are available at http://www.mafmc.org/sf-s-bsb. Recreatinal/commercial. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; State-level allocation &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Both commercial (1980-1989) and recreational (1998; no longer used as explicit allocation target) state-by-state allocations are part of the Council and ASMFC FMP and perceived to be outdated and not reflective of history or current situation. Potential sector allocation considerations. Consideration and identification of shoreside businesses. &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Commercial landings data and VTR information; MRIP data; commercial amendment EIS document; fishery independent data (NEFSC trawl survey, NEAMAP and other state surveys); NEFSC community vulnerability index &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; North/South and Inshore/Offshore &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+???
+---
+
+## Our team was asked specifically for a gap analysis
+
+## Documentation is also key to scientific method
+
+
+.pull-left[Google Sheets used to develop documentation
+
+- Facilitates collaborative development
+  
+- Can easily import Google Sheets into R using the [googledrive](https://googledrive.tidyverse.org/) package
+  
+  + Change Google Sheet, then automatically propogates
+    
+  + Authorize by typing drive_find(n_max=30) into command line after package installation
+    ]
+    
+.pull-right[
+![Code chunk that reads in google sheet information data.](RWorkshopImages/googlesheetcode.png)
+
+.image-cap[Code pulling Google Sheet into memory, savig it as an Excel file, and then creating HTML table from the Excel file.
+]
+]
+
+???
+---
+## After preliminary presentation to the Council, a list of definitions was requested [DT Package](https://rstudio.github.io/DT/)
+
+
+<div id="htmlwidget-393481f721a6fa1cf9ce" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-393481f721a6fa1cf9ce">{"x":{"filter":"none","data":[[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],["   Distribution Shift   ","   Estuarine Habitat   ","   Fluke SSB (Stock Biomass)   ","   Stock Assessment   ","   Offshore Habitat   ","   Allocation   ","   Commercial Profits   ","   Discards   ","  Shoreside Support   ","   Fleet Diversity   ","   Management Control   ","   Recreational Value   ","   Regulatory Complexity   ","   Seafood Production   ","   Technical Interactions   ","   Offshore Wind   ","   Other Links   ","   Driver   "],[" Changes in geographic species distribution (= 'distribution shifts') can increase risks of ineffective spatial catch allocation; if catch distribution is greatly mismatched with species distribution OY may not be achieved. The conceptual model highlights factors contributing to distribution change and elements affected by distribution change."," Both neashore and estuarine (mixed fresh and seawater) water column and bottom features constitute estuarine habitat. Threats to estuarine and nearshore coastal habitat/nursery grounds relate to OY through changes in both fish productivity and distribution change. The conceptual model links specific climate effects and human activities to estuarine habitat and habitat to summer flounder population characteristics that ultimately affect OY.     ","  The risk assessment used biomass levels relative to established reference points from assessments to indicate the level of risk to achieving OY. The conceptual model highlights processes contributing to changes in stock biomass and elements affected by stock biomass.","  Assessment methods and data quality shape our understanding of stock status and yield. This risk element addresses risk to achieving OY due to scientific uncertainty based on analytical limitations.  The conceptual model highlights factors contributing to assessment uncertainty and elements affected by the assessment.  ","  Offshore habitat can be defined as a combination of water column and bottom features. Climate and human activities can alter offshore habitat. The conceptual model links climate and human effects on offshore habitat to summer flounder population characteristics that ultimately affect OY.     ","   This element addresses the risk of not achieving OY due to spatial mismatch of stocks and management allocations or because of sub-optimal allocation by sector (commercial/recreational) and/or area (state/region). The conceptual model links elements affecting allocation with elements affected by allocation."," The risk assessment addressed the risk of not maximizing fishery value in terms of commercial profits (although it used revenue as a proxy).  The conceptual model highlights factors contributing to and affected by commercial profits.   ","  Stakeholders have identified the reduction of discards as a high priority in the Council management program--those caused by regulations since they represent biological and economic waste.  Discards of either the target or non-target species in the fishery are included. ","  This element ranks the risk of reduced fishery business resilience due to changes in shoreside support infrastructure. This element is one of several related to fishery resilience in the risk assessment.   ","   This element ranks the risk to maintaining equity in access to fishery resources. Maintaining diversity can provide the capacity to adapt to change at the ecosystem level for dependent fishing communities and can address objectives related to stability.    ","  This element addresses the level of management control in terms of catch estimation (measurement) and monitoring to prevent overfishing. Adequate management control indicates a low risk of overfishing. Poor management control indicates a higher risk of overfishing and hence not achieving OY.    ","  Providing recreational opportunities is a stated goal of optimal fishery management as part of the definition of benefits to the nation under MSA. Recreational fishing is important in the Mid-Atlantic region with many coastal communities having high recreational dependence.     "," Constituents have frequently raised concerns about the complexity of fishery regulations and the need to simplify them to improve their efficacy. Complex regulations may lead to non-compliance and/or impact other fisheries."," The risk assessment evaluated optimizing domestic seafood production from MAFMC managed species. Commercial seafood landings (as opposed to total landings which include bait and industrial uses) were used to assess seafood production. The conceptual model links elements contributing to seafood production with elements affetced by seafood production.","  This element addresses the risk of not achieving OY due to interactions with non-MAFMC managed species including protected species. Here the risk is caused by negative consequences from fishing activity regulated under MAFMC FMPs which interacts with exploited or protected species managed by other agencies.  Interactions with marine mammals protected under the MMPA could result in greater restrictions in MAFMC managed fisheries increasing the risk that OY would not be achieved in those fisheries.       ","  This element addresses the risk of fishery displacement or damage of a fishery resource and/or habitat that supports it as a result of non-fishing activities in the ocean (specifically wind energy).  "," Some links were required in the conceptual model which did not otherwise reflect a previously defined risk element. They are listed here.   "," This is a category for several elements. An element is a driver if it has an impact on the summer flounder fishery-ecosystem at a large scale. "]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Tab<\/th>\n      <th>Element<\/th>\n      <th>Definition<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":3,"columnDefs":[{"className":"dt-right","targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[3,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+???
+---
+# Collaboration facilitated through GitHub
+
+[GitHub is integrated into RStudio](https://happygitwithr.com/rstudio-git-github.html)
+
+- Allows version control
+  
+  + Everyone works off of the same version of the code
+  
+    + Including all files needed to create products
+  
+  + Ensures the code can always be reverted to a point at which it worked
+  
+- GitHub will also host your web pages for free!
+
+  + [GitHub Pages](https://pages.github.com/)
+  
+  + Code pushed to site, and with some file folder housekeeping, HTML is rendered
+  
+    + Near-real time product updating
+  
+    + Warning: Not intuitive for those unfamiliar with HTML
+  
+???
+---
+# Ease of customization for alternate needs
+
+[Presentation of the results of the work group to the MAFMC used different visual representation of the conceptual model](https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_final_2col.html)
+
+Allowed work group to walk through top 3 questions with visual representation to discuss relevant ecosystem linkages.
+
+FYI - the Council chose question 3 to develop a Management Strategy Evaluation around. Work is currently underway.
+???
+---
+## Added benefits of using R and R Markdown
+
+.pull-left[Seamless integration of analysis and final products
+
+  + Great for reports, etc. which need to be updated regularly
+  
+    + Offshore Wind in the Northeast Atlantic LME
+    
+      + Currently 27 lease areas
+      
+      + Frequent requests for information
+      
+      + Standardized &amp; Automated (Dynamic) reporting for Impact Analysis
+      
+      + Alternative text for 508 compliance (HTML)
+]
+.pull-right[
+![Bar graph of revenue generated by top 5 FMPs historically fished in Fairways North Wind Energy Area between 2012 - 2016, by year, and summary table for total revenue by FMP across those five years.](RWorkshopImages/OffshoreWind.png)
+]
+
+???
+---
+# In Conclusion...
+
+R and R Markdown are great resources, particularly for:
+
+- Recurring reporting needs
+
+- Collaboration
+
+- Projects with undefined products
+
+However, there's still value in other software/languages
+???
+---
+# Questions? Thank you!
+
+
+* [Mid-Atlantic Council Summer Flounder conceptual model, support tables](https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_riskfactors_subplots.html)
+
+* [Management questions and conceptual model](https://gdepiper.github.io/Summer_Flounder_Conceptual_Models/sfconsmod_final_2col.html) 
+  
+* Slides available at https://gdepiper.github.io/RWorkshopSocialsci_GD/
+
+.pull-left[
+Contacts:  
+]
+.pull-right[
+geret.depiper@noaa.gov
+
+sarah.gaichas@noaa.gov  
+
+bmuffley@mafmc.org
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "githubp",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
